@@ -280,6 +280,9 @@ func (mw *pubMWriter) rmConn(w *Conn) {
 }
 
 func (w *pubMWriter) write(ctx context.Context, msg Msg) error {
+	if len(msg.Frames) == 0 {
+		return errEmptyMsg
+	}
 	w.mu.RLock()
 	defer w.mu.RUnlock()
 

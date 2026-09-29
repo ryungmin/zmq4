@@ -389,3 +389,17 @@ func TestSocketAutomaticReconnect(t *testing.T) {
 	sendMessages(pub2)
 	checkConnectionWorking(sub)
 }
+
+func TestEmptyMsgSend(t *testing.T) {
+	ctx := context.Background()
+	for _, sck := range []zmq4.Socket{
+		zmq4.NewPub(ctx),
+		zmq4.NewXPub(ctx),
+		zmq4.NewRouter(ctx),
+	} {
+		defer sck.Close()
+		if err := sck.Send(zmq4.Msg{}); err == nil {
+			t.Errorf("%v: expected error on empty message", sck.Type())
+		}
+	}
+}

@@ -27,6 +27,7 @@ var (
 	errInvalidAddress = errors.New("zmq4: invalid address")
 
 	ErrBadProperty = errors.New("zmq4: bad property")
+	errEmptyMsg    = errors.New("zmq4: empty message")
 )
 
 // socket implements the ZeroMQ socket interface
